@@ -1,13 +1,18 @@
-from django.urls import path
-from .views import LogsViewSet
+from .views import LogsViewSet, CardsViewSet, UsersViewSet, LevelsViewSet, ReadersViewSet, SBCsViewSet
 from rest_framework.routers import DefaultRouter
+from django.urls import path, include
 app_name = "skud_app"
-# app_name will help us do a reverse look-up latter.
-# urlpatterns = [
-    # path('logs/', LogsView.as_view({'get':'list'}) ),
-	# path('logs/<int:pk>', LogsView.as_view({'get':'retrieve'})),
-# ]
 
 router = DefaultRouter()
-router.register(r'logs', LogsViewSet, basename='user')
-urlpatterns = router.urls
+router.register(r'logs', LogsViewSet)#basename='user'
+router.register(r'cards', CardsViewSet)
+router.register(r'users', UsersViewSet)
+router.register(r'levels', LevelsViewSet)
+router.register(r'readers', ReadersViewSet)
+router.register(r'sbcs', SBCsViewSet)
+
+urlpatterns = [
+    path('', include(router.urls))
+    #path('forgot-password/', ForgotPasswordFormView.as_view()),
+]
+

@@ -1,22 +1,32 @@
 from rest_framework import serializers
-from .models import Article, Log
-# class ArticleSerializer(serializers.Serializer):
-    # title = serializers.CharField(max_length=120)
-    # description = serializers.CharField()
-    # body = serializers.CharField()
-    # author_id = serializers.IntegerField()
-    # def create(self, validated_data):
-        # return Article.objects.create(**validated_data)
-		
-    # def update(self, instance, validated_data):
-        # instance.title = validated_data.get('title', instance.title)
-        # instance.description = validated_data.get('description', instance.description)
-        # instance.body = validated_data.get('body', instance.body)
-        # instance.author_id = validated_data.get('author_id', instance.author_id)
-        # instance.save()
-        # return instance
-	
+from .models import Log,Card,User,Level,Reader,SBC
+
 class LogSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Log
 		fields = ('id','logDatetime','logAction','logResult','logCard','logUser','logLevel','logReader','logSbc')
+
+class CardSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Card
+		fields = ('id','cardType','cardUser')
+
+class UserSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = User
+		fields = ('id','userType','userFIO','userLevel')
+
+class LevelSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Level
+		fields = ('id','levelDesc','levelReader')
+
+class ReaderSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Reader
+		fields = ('id','readerType','readerStatus','readerSbc')  
+
+class SBCSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = SBC
+		fields = ('id','sbcStatus')  

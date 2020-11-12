@@ -1,21 +1,6 @@
 from django.db import models
-
-# Create your models here.
-class Author(models.Model):
-  name = models.CharField(max_length=255)
-  email = models.EmailField()
-  def __str__(self):
-        return self.title
-class Article(models.Model):
-  title = models.CharField(max_length=120)
-  description = models.TextField()
-  body = models.TextField()
-  author = models.ForeignKey('Author', related_name='articles', on_delete=models.CASCADE)
-  def __str__(self):
-        return self.title
         
 class Log(models.Model):
-  #logID = models.CharField(max_length=255)
   logDatetime = models.DateTimeField()
   logAction = models.CharField(max_length=255)
   logResult = models.CharField(max_length=255)
@@ -25,24 +10,38 @@ class Log(models.Model):
   logReader = models.ForeignKey('Reader',related_name='readers',on_delete=models.CASCADE)
   logSbc = models.ForeignKey('SBC',related_name='SBCs',on_delete=models.CASCADE)
 
-
 class Card(models.Model):
-  cardID = models.CharField(max_length=255)
+  id = models.CharField(max_length=255, primary_key=True, unique=True)
   cardType = models.CharField(max_length=255)
   cardUser = models.ForeignKey('User', related_name='Сard_users', on_delete=models.CASCADE)
+  def __str__(self):
+        return self.id
+    
 class User(models.Model):
-  userID = models.CharField(max_length=255)
-  userType = models.IntegerField()
+  id = models.CharField(max_length=255, primary_key=True, unique=True)
+  userType = models.CharField(max_length=255)
+  userFIO = models.CharField(max_length=255)
   userLevel = models.ForeignKey('Level', related_name='User_levels', on_delete=models.CASCADE)
+  
+  def __str__(self):
+        return self.userFIO
+    
 class Level(models.Model):
-  levelID = models.CharField(max_length=255)
+  id = models.CharField(max_length=255, primary_key=True, unique=True)
   levelDesc = models.CharField(max_length=255)
   levelReader = models.ForeignKey('Reader',related_name='Level_readers',on_delete=models.CASCADE)
+  def __str__(self):
+        return self.levelDesc
+    
 class Reader(models.Model):
-  readerID = models.CharField(max_length=255)
+  id = models.CharField(max_length=255, primary_key=True, unique=True)
   readerType = models.CharField(max_length=255)
   readerStatus = models.CharField(max_length=255) 
   readerSbc = models.ForeignKey('SBC',related_name='Reared_SBCs',on_delete=models.CASCADE)
+  def __str__(self):
+        return self.readerType
 class SBC(models.Model):
-  sbcID = models.CharField(max_length=255)
+  id = models.CharField(max_length=255, primary_key=True, unique=True)
   sbcStatus = models.CharField(max_length=255) 
+  def __str__(self):
+        return self.id
