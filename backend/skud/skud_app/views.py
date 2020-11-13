@@ -30,10 +30,19 @@ class LevelsViewSet(viewsets.ModelViewSet):
     serializer_class = LevelSerializer
     queryset = Level.objects.all()
     
+    @action(methods=['post'],detail=False, url_path='reader-list',\
+            url_name='reader_list')
+        
+    def find_reader_query(self, request, pk=None):
+        finder = request.data.get("level")
+        result = Level.objects.filter(levelReader=finder)
+        return Response({"result":LevelSerializer(result, many=True).data})
+    
 class ReadersViewSet(viewsets.ModelViewSet):
     serializer_class = ReaderSerializer
     queryset = Reader.objects.all()
     
+
 class SBCsViewSet(viewsets.ModelViewSet):
     serializer_class = SBCSerializer
     queryset = SBC.objects.all()
