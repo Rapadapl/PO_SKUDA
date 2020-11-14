@@ -25,22 +25,42 @@ class CardsViewSet(viewsets.ModelViewSet):
 class UsersViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+     
+    @action(methods=['post'],detail=False, url_path='level-list',\
+            url_name='level_list')
+        
+    def find_reader_query(self, request, pk=None):
+        finder = request.data.get("level")
+        result = Reader.objects.all()
+        return Response({"result":ReaderSerializer(result.filter(readerLevel=finder), many=True).data})
     
 class LevelsViewSet(viewsets.ModelViewSet):
     serializer_class = LevelSerializer
     queryset = Level.objects.all()
     
-    @action(methods=['post'],detail=False, url_path='reader-list',\
-            url_name='reader_list')
-        
-    def find_reader_query(self, request, pk=None):
-        finder = request.data.get("level")
-        result = Level.objects.filter(levelReader=finder)
-        return Response({"result":LevelSerializer(result, many=True).data})
+
     
 class ReadersViewSet(viewsets.ModelViewSet):
     serializer_class = ReaderSerializer
     queryset = Reader.objects.all()
+    
+    @action(methods=['post'],detail=False, url_path='level-list',\
+            url_name='level_list')
+        
+    def find_reader_query(self, request, pk=None):
+        finder = request.data.get("level")
+        result = Reader.objects.all()
+        #print(result.filter(readerLevel="3"))
+        return Response({"result":ReaderSerializer(result.filter(readerLevel=finder), many=True).data})
+    
+    @action(methods=['post'],detail=False, url_path='sbc-list',\
+            url_name='sbc_list')
+        
+    def find_sbc_query(self, request, pk=None):
+        finder = request.data.get("sbc")
+        result = Reader.objects.all()
+        #print(result.filter(readerLevel="3"))
+        return Response({"result":ReaderSerializer(result.filter(readerSbc=finder), many=True).data})
     
 
 class SBCsViewSet(viewsets.ModelViewSet):
