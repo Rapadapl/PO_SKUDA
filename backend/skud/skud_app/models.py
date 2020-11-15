@@ -29,7 +29,7 @@ class User(models.Model):
 class Level(models.Model):
   id = models.CharField(max_length=255, primary_key=True, unique=True)
   levelDesc = models.CharField(max_length=255)
-  levelReader = models.ForeignKey('Reader',related_name='Level_readers',on_delete=models.CASCADE)
+  #levelReader = models.ForeignKey('Reader',related_name='Level_readers',on_delete=models.CASCADE) поменять левел и ридер
   def __str__(self):
         return self.levelDesc
     
@@ -38,8 +38,10 @@ class Reader(models.Model):
   readerType = models.CharField(max_length=255)
   readerStatus = models.CharField(max_length=255) 
   readerSbc = models.ForeignKey('SBC',related_name='Reared_SBCs',on_delete=models.CASCADE)
+  readerLevel = models.ForeignKey('Level',related_name='Reader_levels',on_delete=models.CASCADE)
   def __str__(self):
         return self.readerType
+    
 class SBC(models.Model):
   id = models.CharField(max_length=255, primary_key=True, unique=True)
   sbcStatus = models.CharField(max_length=255) 

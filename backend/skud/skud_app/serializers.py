@@ -19,12 +19,12 @@ class UserSerializer(serializers.ModelSerializer):
 class LevelSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Level
-		fields = ('id','levelDesc','levelReader')
+		fields = ('id','levelDesc',)
 
 class ReaderSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Reader
-		fields = ('id','readerType','readerStatus','readerSbc')  
+		fields = ('id','readerType','readerStatus','readerSbc', 'readerLevel')  
 
 class SBCSerializer(serializers.ModelSerializer):
 	class Meta:
