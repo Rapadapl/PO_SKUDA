@@ -6,3 +6,11 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+*.pyc
+*~
+__pycache__
+myvenv
+venv
+db.sqlite3
+.DS_Store
+.env
