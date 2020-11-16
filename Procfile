@@ -1,1 +1,1 @@
-web: gunicorn skud.wsgi --log-file -
+web: gunicorn {{ project_name }}.wsgi
