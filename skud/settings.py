@@ -26,7 +26,7 @@ SECRET_KEY = 'j_yp%v1#-%o1=kpb)ia%^bjb#+8)57hpk1x-k$%joy#n86=go&'
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost','po-skud.herokuapp.com']
-
+CORS_ORIGIN_ALLOW_ALL=True
 
 # Application definition
 
@@ -39,12 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
 	'skud_app',
+	'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
