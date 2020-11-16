@@ -19,7 +19,7 @@ class CardsViewSet(viewsets.ModelViewSet):
     
     def card_validation(self, request, pk=None):
             validation = request.data.get('id')
-            validation_result = Card.objects.filter(pk=validation)
+            validation_result = self.queryset.filter(pk=validation)
             return Response({"result":validation_result.exists()})
     
 class UsersViewSet(viewsets.ModelViewSet):
@@ -31,8 +31,7 @@ class UsersViewSet(viewsets.ModelViewSet):
         
     def find_reader_query(self, request, pk=None):
         finder = request.data.get("level")
-        result = Reader.objects.all()
-        return Response({"result":ReaderSerializer(result.filter(readerLevel=finder), many=True).data})
+        return Response({"result":ReaderSerializer(self.queryset.filter(readerLevel=finder), many=True).data})
     
 class LevelsViewSet(viewsets.ModelViewSet):
     serializer_class = LevelSerializer
@@ -49,18 +48,21 @@ class ReadersViewSet(viewsets.ModelViewSet):
         
     def find_reader_query(self, request, pk=None):
         finder = request.data.get("level")
-        result = Reader.objects.all()
-        #print(result.filter(readerLevel="3"))
-        return Response({"result":ReaderSerializer(result.filter(readerLevel=finder), many=True).data})
+        return Response({"result":ReaderSerializer(self.queryset.filter(readerLevel=finder), many=True).data})
     
     @action(methods=['post'],detail=False, url_path='sbc-list',\
             url_name='sbc_list')
         
     def find_sbc_query(self, request, pk=None):
         finder = request.data.get("sbc")
-        result = Reader.objects.all()
-        #print(result.filter(readerLevel="3"))
-        return Response({"result":ReaderSerializer(result.filter(readerSbc=finder), many=True).data})
+        return Response({"result":ReaderSerializer(self.queryset.filter(readerSbc=finder), many=True).data})
+    
+    @action(methods=['post'],detail=False, url_path='open-reader',\
+            url_name='open-reader')
+        
+    def open_reader_by_id(self, request, pk=None):
+        finder = request.data.get("id")
+        return Response({"result":"door_opened", "dest":ReaderSerializer(self.queryset.filter(pk=finder), many=True).data})
     
 
 class SBCsViewSet(viewsets.ModelViewSet):

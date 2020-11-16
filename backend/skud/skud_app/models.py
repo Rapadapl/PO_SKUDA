@@ -9,6 +9,8 @@ class Log(models.Model):
   logLevel = models.ForeignKey('Level',related_name='levels',on_delete=models.CASCADE)
   logReader = models.ForeignKey('Reader',related_name='readers',on_delete=models.CASCADE)
   logSbc = models.ForeignKey('SBC',related_name='SBCs',on_delete=models.CASCADE)
+  def __str__(self):
+        return self.id
 
 class Card(models.Model):
   id = models.CharField(max_length=255, primary_key=True, unique=True)
