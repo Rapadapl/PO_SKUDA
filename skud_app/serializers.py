@@ -14,7 +14,7 @@ class CardSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
-		fields = ('id','userType','userFIO','userLevel')
+		fields = ('id','userType','userFIO','userLevels')
 
 class LevelSerializer(serializers.ModelSerializer):
 	class Meta:

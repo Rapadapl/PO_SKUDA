@@ -28,7 +28,7 @@ class UsersViewSet(viewsets.ModelViewSet):
     @action(methods=['post'], detail=False, url_path='level-list', url_name='level_list')
     def find_reader_query(self, request, pk=None):
         finder = request.data.get("level")
-        return Response({"result":ReaderSerializer(self.queryset.filter(readerLevel=finder), many=True).data})
+        return Response({"result":UserSerializer(self.queryset.filter(userLevels=finder), many=True).data})
 
 class LevelsViewSet(viewsets.ModelViewSet):
     serializer_class = LevelSerializer

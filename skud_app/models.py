@@ -18,22 +18,23 @@ class Card(models.Model):
   cardUser = models.ForeignKey('User', related_name='Сard_users', on_delete=models.CASCADE)
   def __str__(self):
         return self.id
+
+    
+class Level(models.Model):
+  id = models.CharField(max_length=255, primary_key=True, unique=True)
+  levelDesc = models.CharField(max_length=255)
+  #levelReader = models.ForeignKey('Reader',related_name='Level_readers',on_delete=models.CASCADE)
+  def __str__(self):
+        return self.levelDesc
     
 class User(models.Model):
   id = models.CharField(max_length=255, primary_key=True, unique=True)
   userType = models.CharField(max_length=255)
   userFIO = models.CharField(max_length=255)
-  userLevel = models.ForeignKey('Level', related_name='User_levels', on_delete=models.CASCADE)
-  
+  #userLevel = models.ForeignKey('Level', related_name='User_levels', on_delete=models.CASCADE)
+  userLevels = models.ManyToManyField(Level)
   def __str__(self):
         return self.userFIO
-    
-class Level(models.Model):
-  id = models.CharField(max_length=255, primary_key=True, unique=True)
-  levelDesc = models.CharField(max_length=255)
-  #levelReader = models.ForeignKey('Reader',related_name='Level_readers',on_delete=models.CASCADE) поменять левел и ридер
-  def __str__(self):
-        return self.levelDesc
     
 class Reader(models.Model):
   id = models.CharField(max_length=255, primary_key=True, unique=True)
