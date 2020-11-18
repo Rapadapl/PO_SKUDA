@@ -9,3 +9,6 @@ sqlparse==0.4.1
 gunicorn
 psycopg2
 django-cors-headers==3.5.0
+datetime
+PyJWT==1.7.1
+pytz==2020.1

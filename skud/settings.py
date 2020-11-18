@@ -42,6 +42,8 @@ INSTALLED_APPS = [
 	'corsheaders',
 ]
 
+AUTH_USER_MODEL = "skud_app.DbUser"
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -126,14 +128,23 @@ USE_L10N = True
 USE_TZ = True
 
 
+#AUTH_USER_MODEL = "skud_app.DbUserManager"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 REST_FRAMEWORK = {
+'''
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
+'''
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+        ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'skud_app.backends.JWTAuthentication',
+        )
 }
