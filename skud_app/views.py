@@ -86,7 +86,7 @@ class CardsViewSet(viewsets.ModelViewSet):
             
             
             
-            resp = req.post("http://127.0.0.1:8000/api/readers/open-reader/", json={"id":request.data.get("readerID")}, headers={'Content-Type':'application/json'} )
+            resp = req.post("https://po-skud.herokuapp.com/api/readers/open-reader/", json={"id":request.data.get("readerID")}, headers={'Content-Type':'application/json'} )
             print(resp.json())
         return Response({"result":validation_result.exists()})
     
