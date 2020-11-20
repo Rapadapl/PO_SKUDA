@@ -13,3 +13,4 @@ datetime
 PyJWT==1.7.1
 djangorestframework-simplejwt
 pymssql
+requests
