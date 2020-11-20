@@ -32,7 +32,7 @@ class CardsViewSet(viewsets.ModelViewSet):
     
     def create(self, request, *args, **kwargs):
         
-        conn = pymssql.connect("RAPADAPL-DESKTO", "User1", "123456789", "DemoBase")
+        #conn = pymssql.connect("RAPADAPL-DESKTO", "User1", "123456789", "DemoBase")
         userOBJ = User.objects.all().filter(pk=request.data.get('cardUser')).values_list('id')[0]
         userID = userOBJ[0]
         #userFIO = userOBJ[1]
@@ -40,12 +40,12 @@ class CardsViewSet(viewsets.ModelViewSet):
         cardType  = request.data.get("cardType")
         cardID = request.data.get("id")
         
-        cursor = conn.cursor()
+        #cursor = conn.cursor()
         #
-        queryString = "INSERT INTO [dbo].[_InfoRg39027] ([_Fld39028RRef],[_Fld39029],[_Fld39030],[_Fld543]) VALUES("+ str(userID)+"," + " ' " + str(cardID)+ " ' " + ","+ " ' " + str(cardType) + " ' " +","+ str(0)+")"
-        print(queryString)               
-        cursor.execute(queryString)
-        conn.commit()
+        #queryString = "INSERT INTO [dbo].[_InfoRg39027] ([_Fld39028RRef],[_Fld39029],[_Fld39030],[_Fld543]) VALUES("+ str(userID)+"," + " ' " + str(cardID)+ " ' " + ","+ " ' " + str(cardType) + " ' " +","+ str(0)+")"
+        #print(queryString)               
+        #cursor.execute(queryString)
+        #conn.commit()
  
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -65,7 +65,7 @@ class CardsViewSet(viewsets.ModelViewSet):
         dt = "2001-01-01 " + str(t)
         #print(yd)
         #print(dt)
-        conn = pymssql.connect("RAPADAPL-DESKTO", "User1", "123456789", "DemoBase")
+        #conn = pymssql.connect("RAPADAPL-DESKTO", "User1", "123456789", "DemoBase")
         ans = ""
         if (request.data.get("readerID") == "0"):
             ans = "0xA499D07B7C508EC5448338A081408450"
@@ -73,7 +73,7 @@ class CardsViewSet(viewsets.ModelViewSet):
             ans = "0x88ED61195DFB87A04E368B51E80EA847"
             
         cardID = request.data.get("id")
-        cursor = conn.cursor()
+        #cursor = conn.cursor()
         if (validation_result.exists()):
             userID = User.objects.all().filter(pk=self.queryset.filter(pk=request.data.get("id")).values_list('cardUser')[0][0]).values_list('id')[0][0]
             queryString = "INSERT INTO [dbo].[_InfoRg39022] ([_Fld39032],[_Fld39023],[_Fld39024RRef],[_Fld39025RRef],[_Fld39026],[_Fld543]) VALUES("+ " ' " +str(yd)+" ' " + "," + " ' " + str(dt)+ " ' " + "," +  str(ans) +","+ str(userID)+","+ " ' "+str(cardID)+" ' " +","  +str(0)+ ")"      
