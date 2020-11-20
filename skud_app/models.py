@@ -39,7 +39,7 @@ class User(models.Model):
   userType = models.CharField(max_length=255)
   userFIO = models.CharField(max_length=255)
   #userLevel = models.ForeignKey('Level', related_name='User_levels', on_delete=models.CASCADE)
-  userLevels = models.ManyToManyField(Level)
+  userLevels = models.ManyToManyField(Level, blank=True,)
   def __str__(self):
         return self.userFIO
     
@@ -139,8 +139,8 @@ class DbUser(AbstractBaseUser, PermissionsMixin):
     
 
     @property
-    def token(self):
-        return self._generate_jwt_token()
+#    def token(self):
+#        return self._generate_jwt_token()
 
     def get_full_name(self):
         return self.username
@@ -149,6 +149,7 @@ class DbUser(AbstractBaseUser, PermissionsMixin):
 
         return self.username
 
+'''
     def _generate_jwt_token(self):
         dt = datetime.now() + timedelta(days=60)
 
@@ -158,3 +159,4 @@ class DbUser(AbstractBaseUser, PermissionsMixin):
         }, settings.SECRET_KEY, algorithm='HS256')
 
         return token.decode('utf-8')
+'''

@@ -12,7 +12,7 @@ class CardSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Card
 		fields = ('id','cardType','cardUser')
-
+		
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
@@ -22,7 +22,7 @@ class LevelSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Level
 		fields = ('id','levelDesc',)
-
+		
 class ReaderSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Reader
@@ -41,11 +41,12 @@ class RegistrationSerializer(serializers.ModelSerializer):
         min_length=8,
         write_only=True,
     )
-    token = serializers.CharField(max_length=255, read_only=True)
+#    token = serializers.CharField(max_length=255, read_only=True)
 
     class Meta:
         model = DbUser
-        fields = ('email', 'username', 'password', 'token',)
+#        fields = ('email', 'username', 'password', 'token',)
+        fields = ('email', 'username', 'password')
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)       
@@ -56,7 +57,7 @@ class LoginSerializer(serializers.Serializer):
 
     # Ignore these fields if they are included in the request.
     username = serializers.CharField(max_length=255, read_only=True)
-    token = serializers.CharField(max_length=255, read_only=True)
+    #token = serializers.CharField(max_length=255, read_only=True)
 
     def validate(self, data):
 
@@ -86,7 +87,8 @@ class LoginSerializer(serializers.Serializer):
             )
 
         return {
-            'token': user.token,
+           # 'token': user.token,
+           'result':"Вход успешно выполнен"
         }        
 
 '''

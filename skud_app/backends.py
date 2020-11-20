@@ -1,3 +1,4 @@
+'''
 import jwt
 
 from django.conf import settings
@@ -44,17 +45,18 @@ class JWTAuthentication(authentication.BaseAuthentication):
         try:
             payload = jwt.decode(token, settings.SECRET_KEY)
         except:
-            msg = 'Invalid authentication. Could not decode token.'
+            msg = 'Неудаётся декодировать токен'
             raise exceptions.AuthenticationFailed(msg)
 
         try:
             user = User.objects.get(pk=payload['id'])
         except User.DoesNotExist:
-            msg = 'No user matching this token was found.'
+            msg = 'Нет пользователя с таким токеном'
             raise exceptions.AuthenticationFailed(msg)
 
         if not user.is_active:
-            msg = 'This user has been deactivated.'
+            msg = 'Этот пользователь был удалён'
             raise exceptions.AuthenticationFailed(msg)
 
         return (user, token)
+'''
